@@ -1,0 +1,47 @@
+// Configuração dos Pinos
+const int PIN_RELE1  = 3;
+const int PIN_BOTAO1 = 4;
+
+int estado_rele1         = 0;
+int ultimo_estado_botao1 = 1;
+
+const int PIN_RELE2  = 7;
+const int PIN_BOTAO2 = 9;
+
+int estado_rele2         = 0;
+int ultimo_estado_botao2 = 1;
+
+void setup() {
+  pinMode(PIN_RELE1, OUTPUT);
+  pinMode(PIN_BOTAO1, INPUT);
+  digitalWrite(PIN_RELE1, 0);
+
+  pinMode(PIN_RELE2, OUTPUT);
+  pinMode(PIN_BOTAO2, INPUT);
+  digitalWrite(PIN_RELE2, 0);
+  delay(10);
+}
+
+void loop() {
+  int estado_atual1 = digitalRead(PIN_BOTAO1);
+  // Detecta a transição de solto -> pressionado
+  if ((ultimo_estado_botao1 == 1) && (estado_atual1 == 0)) {
+    estado_rele1 = !estado_rele1;
+
+    digitalWrite(PIN_RELE1, estado_rele1);
+  }
+  ultimo_estado_botao1 = estado_atual1;
+
+
+  int estado_atual2 = digitalRead(PIN_BOTAO2);
+  // Detecta a transição de solto -> pressionado
+  if ((ultimo_estado_botao2 == 1) && (estado_atual2 == 0)) {
+    estado_rele2 = !estado_rele2;
+
+    digitalWrite(PIN_RELE2, estado_rele2);
+  }
+  ultimo_estado_botao2 = estado_atual2;
+  
+  // debounce simples
+  delay(10);
+}

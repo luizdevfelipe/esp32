@@ -1,0 +1,102 @@
+int const pinRed1 = 6;
+int const pinYellow1 = 5;
+int const pinGreen1 = 4;
+
+int const pinRed2 = 9;
+int const pinYellow2 = 8;
+int const pinGreen2 = 7;
+
+int const pedGreen = 3;
+int const pedRed = 2;
+
+void primeiro(char cor);
+void segundo(char cor);
+void pedestre(bool isActive);
+
+
+void setup() {
+  pinMode(pinRed1, OUTPUT);
+  pinMode(pinYellow1, OUTPUT);
+  pinMode(pinGreen1, OUTPUT);
+
+  pinMode(pinRed2, OUTPUT);
+  pinMode(pinYellow2, OUTPUT);
+  pinMode(pinGreen2, OUTPUT);
+
+  pinMode(pedGreen, OUTPUT);
+  pinMode(pedRed, OUTPUT);
+}
+
+void loop() {
+
+  pedestre(false);
+  primeiro('g');
+  segundo('r');
+  delay(2000);
+
+  primeiro('y');
+  segundo('r');
+  pedestre(true);
+  delay(2000);
+  pedestre(false);
+
+  primeiro('r');
+  segundo('g');
+  delay(2000);
+
+  primeiro('r');
+  segundo('y');
+  pedestre(true);
+  delay(2000);
+  pedestre(false);
+
+  delay(10); // this speeds up the simulation
+}
+
+void primeiro(char cor) {
+  if (cor == 'r') {
+    // Primeiro Semáforo Vermelho
+    digitalWrite(pinRed1, HIGH);
+    digitalWrite(pinYellow1, LOW);
+    digitalWrite(pinGreen1, LOW);
+  } else if (cor == 'g') {
+    // Primeiro Semáforo Verde
+    digitalWrite(pinRed1, LOW);
+    digitalWrite(pinYellow1, LOW);
+    digitalWrite(pinGreen1, HIGH);
+  } else if (cor == 'y') {
+    // Primeiro Semáforo Amarelo
+    digitalWrite(pinRed1, LOW);
+    digitalWrite(pinYellow1, HIGH);
+    digitalWrite(pinGreen1, LOW);
+  }
+}
+void segundo(char cor) {
+  if (cor == 'r') {
+    // Segundo Semáforo Vermelho
+    digitalWrite(pinRed2, HIGH);
+    digitalWrite(pinYellow2, LOW);
+    digitalWrite(pinGreen2, LOW);
+
+  } else if (cor == 'g') {
+    // Segundo Semáforo Verde
+    digitalWrite(pinRed2, LOW);
+    digitalWrite(pinYellow2, LOW);
+    digitalWrite(pinGreen2, HIGH);
+
+  }  else if (cor == 'y') {
+    // Segundo Semáforo Amarelo
+    digitalWrite(pinRed2, LOW);
+    digitalWrite(pinYellow2, HIGH);
+    digitalWrite(pinGreen2, LOW);
+  }
+}
+void pedestre(bool isActive) {
+  if (isActive) {
+    digitalWrite(pedGreen, HIGH);
+    digitalWrite(pedRed, LOW);
+  } else {
+    digitalWrite(pedGreen, LOW);
+    digitalWrite(pedRed, HIGH);
+  }
+}
